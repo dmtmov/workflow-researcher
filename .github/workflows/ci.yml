@@ -57,7 +57,7 @@ jobs:
         
     - name: Lint with flake8
       run: |
-        flake8 app/ --show-source --statistics --max-line-length=119
+        flake8 app.py --show-source --statistics --max-line-length=119
 
     - name: Run tests
       env:
