@@ -68,7 +68,6 @@ jobs:
   build-and-push:
     name: ECR
     needs: [linting, testing]
-    runs-on: self-hosted
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout Code
@@ -97,7 +96,6 @@ jobs:
   deploy:
     needs: [build-and-push]
     name: Deployment
-    runs-on: self-hosted
     if: github.ref == 'refs/heads/develop'
 
     steps:
