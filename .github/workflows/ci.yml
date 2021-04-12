@@ -14,7 +14,7 @@ on:
 jobs:
   bump-tag:
     name: Bump tag version
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Bump version and push tag
+        id: bumptag
         uses: anothrNick/github-tag-action@1.34.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.bump-tag.outputs.tag }}
-          release_name: Release ${{ steps.bump-tag.outputs.tag }}
+          tag_name: ${{ steps.bumptag.outputs.tag }}
+          release_name: Release ${{ steps.bumptag.outputs.tag }}
           draft: false
           prerelease: false
 
