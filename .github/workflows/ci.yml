@@ -22,31 +22,17 @@ jobs:
           fetch-depth: 0
 
       - name: Bump version and push tag
+        id: bumptag
         uses: anothrNick/github-tag-action@1.26.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
 
-#       - name: Get previous tag
-#         id: previoustag
-#         uses: "WyriHaximus/github-action-get-previous-tag@v1"
-
-
-#       - name: Get seconds from previous tag to now
-#         id: nexttag
-#         shell: bash
-#         env:
-#           TIMESTAMP_TAG: ${{ steps.previoustag.outputs.timestamp }}
-#         run: |
-#           echo "::set-output name=timestamp-diff::$(expr $(printf '%(%s)T') - $TIMESTAMP_TAG)"
-
-
-
-#       - uses: "marvinpinto/action-automatic-releases@latest"
-#         with:
-#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-#           automatic_release_tag: "latest"
-#           prerelease: false
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: ${{ needs.bumptag.outputs.new-tag }}
+          prerelease: false
 #           title: "${{ github.GITHUB_TOKEN }}"
 
 
