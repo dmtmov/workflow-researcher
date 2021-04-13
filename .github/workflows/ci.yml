@@ -39,4 +39,4 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: dmtmov/workflow-researcher-2
           event-type: call-deploy
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "my-key": "dima"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "${{ steps.bumptag.outputs.tag }}"}'
