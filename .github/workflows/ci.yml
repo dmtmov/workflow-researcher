@@ -41,3 +41,4 @@ jobs:
           event-type: call-deploy
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.9"}'
           # client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "${{ steps.bumptag.outputs.tag }}"}'
+
