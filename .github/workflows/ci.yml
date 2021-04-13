@@ -33,7 +33,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Repository Dispatch
+      - name: Repository Dispatch Deploy
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
