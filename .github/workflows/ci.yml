@@ -6,7 +6,7 @@ name: Bump tag version & release
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   bump-tag:
@@ -103,7 +103,7 @@ jobs:
 #     name: ECR
 #     runs-on: ubuntu-latest
 #     needs: [linting, testing]
-#     if: github.ref == 'refs/heads/master'
+#     if: github.ref == 'refs/heads/main'
 #     steps:
 #       - name: Checkout Code
 #         uses: actions/checkout@v2
@@ -132,7 +132,7 @@ jobs:
 #     needs: [build-and-push]
 #     name: Deployment
 #     runs-on: ubuntu-latest
-#     if: github.ref == 'refs/heads/master'
+#     if: github.ref == 'refs/heads/main'
 
 #     steps:
 #       - name: Checkout Code
