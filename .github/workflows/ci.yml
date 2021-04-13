@@ -14,9 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Bump version and push tag
         id: bumptag
@@ -37,6 +36,15 @@ jobs:
           release_name: Release ${{ steps.bumptag.outputs.tag }}
           draft: false
           prerelease: false
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: dmtmov/workflow-researcher-2
+          event-type: call-deploy
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "my-key": "dima"}'
+
 
 
 #   linting:
