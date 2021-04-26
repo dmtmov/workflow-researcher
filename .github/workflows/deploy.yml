@@ -10,7 +10,6 @@ on:
 jobs:
   push:
     runs-on: ubuntu-latest
-
     steps:
 
       - name: Deploy to ECR
