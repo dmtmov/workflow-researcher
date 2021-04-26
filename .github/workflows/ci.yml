@@ -39,7 +39,7 @@ jobs:
           check-name: push container # name of the existing check - omit to wait for all checks
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 20 # seconds
-          running-workflow-name: build
+          # running-workflow-name: build
 
       - name: Dispatch release
         uses: peter-evans/repository-dispatch@v1
