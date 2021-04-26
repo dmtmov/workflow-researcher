@@ -35,10 +35,10 @@ jobs:
       - name: Wait on deploy
         uses: lewagon/wait-on-check-action@v0.2
         with:
-          ref: main # can be commit SHA or tag too
-          check-name: push # name of the existing check - omit to wait for all checks
+          ref: ${{ github.ref }}
+          # check-name: push # name of the existing check - omit to wait for all checks
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 20 # seconds
+          wait-interval: 10 # seconds
 
       - name: Dispatch release
         uses: peter-evans/repository-dispatch@v1
