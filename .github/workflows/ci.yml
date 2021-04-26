@@ -33,20 +33,15 @@ jobs:
           prerelease: false
 
       - name: Wait on deploy
-        uses: fountainhead/action-wait-for-check@v1.0.0
+        uses: lewagon/wait-on-check-action@v0.2
         with:
           ref: ${{ github.ref }}
-          # check-name: push # name of the existing check - omit to wait for all checks
-          token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: push
-
-      - name: Do something with a failing build
-        if: steps.wait-for-build.outputs.conclusion == 'failure'
-        run: |
-          echo Build failed!
+          check-name: push container # name of the existing check - omit to wait for all checks
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20 # seconds
+          running-workflow-name: build
 
       - name: Dispatch release
-        if: steps.wait-for-build.outputs.conclusion == 'success'
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

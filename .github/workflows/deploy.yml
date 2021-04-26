@@ -10,6 +10,7 @@ on:
 
 jobs:
   push:
+    name: "push container"
     runs-on: ubuntu-latest
     steps:
 
