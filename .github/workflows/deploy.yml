@@ -5,7 +5,9 @@ name: Test deploy
 
 on:
   release:
-    types: [created]
+    types:
+      - created
+      - published
 
 jobs:
   push:
