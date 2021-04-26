@@ -9,36 +9,42 @@ on:
       - main
 
 jobs:
-  bump-tag:
-    name: CI 
+    name: CI
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      # - name: Bump tag
-      #   id: bumptag
-      #   uses: anothrNick/github-tag-action@1.34.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     WITH_V: false
+      - name: Create tag
+        id: latesttag
+        uses: anothrNick/github-tag-action@1.34.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
 
-      # - name: Create release
-      #   uses: actions/create-release@latest
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ steps.bumptag.outputs.tag }}
-      #     release_name: Release ${{ steps.bumptag.outputs.tag }}
-      #     draft: false
-      #     prerelease: false
+      - name: Create release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.latesttag.outputs.tag }}
+          release_name: Release ${{ steps.latesttag.outputs.tag }}
+          draft: false
+          prerelease: false
 
-      - name: Repository Dispatch Deploy
+      - name: Wait on deploy
+        uses: lewagon/wait-on-check-action@v0.2
+        with:
+          ref: main # can be commit SHA or tag too
+          check-name: push # name of the existing check - omit to wait for all checks
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20 # seconds
+
+      - name: Dispatch release
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: dmtmov/workflow-researcher-2
           event-type: call-deploy
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.9"}'
-          # client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "${{ steps.bumptag.outputs.tag }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
 

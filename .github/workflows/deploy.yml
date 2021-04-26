@@ -1,0 +1,20 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Test deploy
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Deploy to ECR
+        run: |
+            echo Publishing..
+            sleep 10
+            echo Published!
