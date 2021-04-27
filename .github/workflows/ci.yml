@@ -37,7 +37,7 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Push container  # we use only Dev environment now
+          checkName: pushContainer  # we use only Dev environment now
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Dispatch release
