@@ -33,18 +33,28 @@ jobs:
           prerelease: false
 
       - name: Wait on deploy
-        uses: lewagon/wait-on-check-action@v0.2
-        with:
-          ref: ${{ github.ref }}
-          # check-name: push # name of the existing check - omit to wait for all checks
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 20 # seconds
-
-      - name: Dispatch release
-        uses: peter-evans/repository-dispatch@v1
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: dmtmov/workflow-researcher-2
-          event-type: call-deploy
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
+          checkName: push
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Do something with a passing build
+        if: steps.wait-for-build.outputs.conclusion == 'success'
+        run: |
+          echo "Success"
+
+      - name: Do something with a failing build
+        if: steps.wait-for-build.outputs.conclusion == 'failure'
+        run: |
+          echo "Fail"
+
+      # - name: Dispatch release
+      #   uses: peter-evans/repository-dispatch@v1
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     repository: dmtmov/workflow-researcher-2
+      #     event-type: call-deploy
+      #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
 
