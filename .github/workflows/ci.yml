@@ -37,24 +37,19 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: deploy
+          checkName: push  # we use only Dev environment now
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: Do something with a passing build
+      - name: Dispatch release
+        uses: peter-evans/repository-dispatch@v1
         if: steps.wait-for-build.outputs.conclusion == 'success'
-        run: |
-          echo "Success"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: dmtmov/workflow-researcher-2
+          event-type: call-deploy
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
 
       - name: Do something with a failing build
         if: steps.wait-for-build.outputs.conclusion == 'failure'
         run: |
           echo "Fail"
-
-      # - name: Dispatch release
-      #   uses: peter-evans/repository-dispatch@v1
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     repository: dmtmov/workflow-researcher-2
-      #     event-type: call-deploy
-      #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
-
