@@ -44,10 +44,10 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         if: steps.wait-for-build.outputs.conclusion == 'success'
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: dmtmov/workflow-researcher-2
           event-type: call-deploy
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "version_tag": "9.9.10"}'
+          client-payload: '{"version_tag": "${{ steps.latesttag.outputs.tag }}"}'
 
       - name: Do something with a failing build
         if: steps.wait-for-build.outputs.conclusion == 'failure'
