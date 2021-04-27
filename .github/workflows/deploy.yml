@@ -4,9 +4,12 @@
 name: push
 
 on:
-  release:
-    types:
-      - created
+  # release:
+  #   types:
+  #     - created
+  create:
+    tags:
+      - "*"
 
 jobs:
   push:
