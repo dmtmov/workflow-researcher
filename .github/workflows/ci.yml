@@ -46,7 +46,7 @@ jobs:
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: dmtmov/workflow-researcher-2
-          event-type: call-deploy
+          event-type: 'DEV Deploy Service'
           client-payload: '{"version_tag": "${{ steps.latesttag.outputs.tag }}"}'
 
       - name: Do something with a failing build
