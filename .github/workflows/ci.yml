@@ -25,7 +25,7 @@ jobs:
       - name: Create release
         uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
           tag_name: ${{ steps.latesttag.outputs.tag }}
           release_name: Release ${{ steps.latesttag.outputs.tag }}
@@ -46,7 +46,7 @@ jobs:
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: dmtmov/workflow-researcher-2
-          event-type: 'DEV Deploy Service'
+          event-type: call-deploy
           client-payload: '{"version_tag": "${{ steps.latesttag.outputs.tag }}"}'
 
       - name: Do something with a failing build
