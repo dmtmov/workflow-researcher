@@ -12,6 +12,12 @@ on:
       - main
 
 jobs:
+  pre-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
   build:
     # if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
