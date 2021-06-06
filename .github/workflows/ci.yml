@@ -12,8 +12,8 @@ jobs:
   pre-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Check
+        run: ls
 
   build:
     if: github.ref == 'refs/heads/main'
