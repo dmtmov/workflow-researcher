@@ -22,6 +22,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Task should Fail
+        run: |
+          ls
+          exit 1;
+      - name: other tasks 1
+        run: |
+          ls
+      - name: other tasks 2
+        run: |
+          ls
+      - name: Always return succeeded
+        if: ${{ always() }}
+        run: |
+          exit 0;
 
       # - name: Create tag
       #   id: latesttag
