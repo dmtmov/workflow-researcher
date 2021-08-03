@@ -24,6 +24,7 @@ jobs:
 
       - name: Task should Fail
         run: exit 1
+        continue-on-error: true
       - name: other tasks 1
         if: success()
         run: ls
