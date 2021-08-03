@@ -26,7 +26,7 @@ jobs:
         run: exit 1
         continue-on-error: true
       - name: other tasks 1
-        if: success()
+        if: failure()
         run: ls
       - name: other tasks 2
         run: ls
