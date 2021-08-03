@@ -9,11 +9,11 @@ on:
       - main
 
 jobs:
-  pre-build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check
-        run: ls
+  # pre-build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check
+  #       run: ls
 
   build:
     if: github.ref == 'refs/heads/main'
@@ -29,9 +29,9 @@ jobs:
         run: ls
       - name: other tasks 2
         run: ls
-      # - name: Always return succeeded
-      #   if: always()
-      #   run: exit 0
+      - name: Always return succeeded
+        if: always()
+        run: exit 0
 
       # - name: Create tag
       #   id: latesttag
