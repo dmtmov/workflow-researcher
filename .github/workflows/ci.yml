@@ -32,7 +32,7 @@ jobs:
         run: ls
       - name: Always return succeeded
         if: always()
-        run: exit 0
+        run: exit 1
 
       # - name: Create tag
       #   id: latesttag
