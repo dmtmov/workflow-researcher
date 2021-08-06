@@ -22,8 +22,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Task should Fail
-        run: exit 1
+      - name: Task should succeed 
+        run: exit 0
         continue-on-error: true
       - name: other tasks 1
         if: failure()
