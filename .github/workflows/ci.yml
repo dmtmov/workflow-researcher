@@ -9,11 +9,11 @@ on:
       - main
 
 jobs:
-  # pre-build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check
-  #       run: ls
+  pre-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        run: sudo apt install tree; tree .
 
   build:
     if: github.ref == 'refs/heads/main'
