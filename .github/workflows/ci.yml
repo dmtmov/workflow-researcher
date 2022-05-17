@@ -22,17 +22,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Task should succeed 
-        run: exit 0
-        continue-on-error: true
-      - name: other tasks 1
-        if: failure()
-        run: ls
-      - name: other tasks 2
-        run: ls
-      - name: Always return succeeded
-        if: always()
-        run: exit 1
+#       - name: Task should succeed 
+#         run: exit 0
+#         continue-on-error: true
+#       - name: other tasks 1
+#         if: failure()
+#         run: ls
+#       - name: other tasks 2
+#         run: ls
+#       - name: Always return succeeded
+#         if: always()
+#         run: exit 1
 
       - name: Create tag
         id: latesttag
