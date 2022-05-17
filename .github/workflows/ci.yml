@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        description: "optional release version (x.x.x)"
 
 jobs:
   pre-build:
