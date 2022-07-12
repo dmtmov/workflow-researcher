@@ -50,7 +50,7 @@ jobs:
       - name: Create release
         uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DISPATCH_REPO_TOKEN }}
         with:
           tag_name: ${{ steps.latesttag.outputs.tag }}
           release_name: Release ${{ steps.latesttag.outputs.tag }}
@@ -69,7 +69,7 @@ jobs:
       #   uses: peter-evans/repository-dispatch@v1
       #   if: steps.wait-for-build.outputs.conclusion == 'success'
       #   with:
-      #     token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      #     token: ${{ secrets.DISPATCH_REPO_TOKEN }}
       #     repository: dmtmov/workflow-researcher-2
       #     event-type: call-deploy
       #     client-payload: '{"version_tag": "${{ steps.latesttag.outputs.tag }}"}'
